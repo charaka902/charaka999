@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import JobSearchView, JobSearchDetailedView, JobSearchBySkillView, JobSearchByTitleView  # Import the new view
+from .views import JobSearchView, JobSearchDetailedView, JobSearchBySkillView, JobSearchByTitleView, home  # Import the new view
 
 urlpatterns = [
      path('', home, name='home'),
