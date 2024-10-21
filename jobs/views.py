@@ -4,7 +4,7 @@ from rest_framework import status
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'home.html')  # Ensure you have a home.html template
+    return render(request, 'home.html')  # Ensure you have 'home.html' in your templates
 
 class JobSearchView(APIView):
     def post(self, request):
@@ -13,15 +13,8 @@ class JobSearchView(APIView):
 
         response_data = {
             "searchParams": {
-                "title": {
-                    "id": "dummy_id",
-                    "name": title
-                },
-                "area": {
-                    "id": "dummy_area_id",
-                    "level": "MSA",
-                    "name": location
-                },
+                "title": {"id": "dummy_id", "name": title},
+                "area": {"id": "dummy_area_id", "level": "MSA", "name": location},
                 "occupations": [],
                 "skills": []
             },
@@ -54,9 +47,7 @@ class JobSearchView(APIView):
                 }
             }
         }
-
         return Response(response_data, status=status.HTTP_200_OK)
-
 
 class JobSearchDetailedView(APIView):
     def post(self, request):
@@ -65,21 +56,9 @@ class JobSearchDetailedView(APIView):
 
         response_data = {
             "searchParams": {
-                "title": {
-                    "id": "ET6850661D6AE5FA86",
-                    "name": title
-                },
-                "area": {
-                    "id": "42660",
-                    "level": "MSA",
-                    "name": "Seattle-Tacoma-Bellevue, WA"
-                },
-                "occupations": [
-                    {
-                        "id": "15-1252",
-                        "name": "Software Developers"
-                    }
-                ],
+                "title": {"id": "ET6850661D6AE5FA86", "name": title},
+                "area": {"id": "42660", "level": "MSA", "name": city},
+                "occupations": [{"id": "15-1252", "name": "Software Developers"}],
                 "skills": []
             },
             "data": {
@@ -91,29 +70,24 @@ class JobSearchDetailedView(APIView):
                 },
                 "companies": [
                     {"id": "8046280", "name": "Microsoft", "profiles": 22592},
-                    {"id": "20", "name": "Amazon", "profiles": 13666},
-                    # Add more companies here...
+                    {"id": "20", "name": "Amazon", "profiles": 13666}
                 ],
                 "skills": [
                     {"id": "KS440QS66YCBN23Y8K25", "name": "Software Engineering", "profiles": 60622},
-                    {"id": "KS120L96KMYTDJ48NRSH", "name": "Software Development", "profiles": 54693},
-                    # Add more skills here...
+                    {"id": "KS120L96KMYTDJ48NRSH", "name": "Software Development", "profiles": 54693}
                 ],
                 "titles": [
                     {"id": "ET6850661D6AE5FA86", "name": "Software Engineers", "profiles": 41437},
-                    {"id": "ETC6F5E57496B18612", "name": "Software Development Engineers", "profiles": 15206},
-                    # Add more titles here...
+                    {"id": "ETC6F5E57496B18612", "name": "Software Development Engineers", "profiles": 15206}
                 ]
             }
         }
-
         return Response(response_data, status=status.HTTP_200_OK)
 
 class JobSearchBySkillView(APIView):
     def post(self, request):
-        skill_id = request.query_params.get("skill_id")
+        skill_id = request.data.get("skill_id")  # Changed from query_params to request.data
 
-        # Dummy response data - replace this with actual database query if needed
         response_data = {
             "searchParams": {
                 "skill_id": skill_id,
@@ -135,31 +109,18 @@ class JobSearchBySkillView(APIView):
                 ]
             }
         }
-
         return Response(response_data, status=status.HTTP_200_OK)
 
 class JobSearchByTitleView(APIView):
     def post(self, request):
         title = request.data.get("title")
-        city = request.data.get("city")  # Updated from area_name to city
+        city = request.data.get("city")
 
         response_data = {
             "searchParams": {
-                "title": {
-                    "id": "ET6850661D6AE5FA86",  # Example ID
-                    "name": title
-                },
-                "area": {
-                    "id": "42660",  # Example area ID
-                    "level": "MSA",  # You can update this as necessary
-                    "name": city  # Now using the city variable
-                },
-                "occupations": [
-                    {
-                        "id": "15-1252",
-                        "name": "Software Developers"
-                    }
-                ],
+                "title": {"id": "ET6850661D6AE5FA86", "name": title},
+                "area": {"id": "42660", "level": "MSA", "name": city},
+                "occupations": [{"id": "15-1252", "name": "Software Developers"}],
                 "skills": []
             },
             "data": {
@@ -172,33 +133,12 @@ class JobSearchByTitleView(APIView):
                     "wageRating": "Somewhat High Wage Inflation"
                 },
                 "percentiles": [
-                    {
-                        "percentile": 10,
-                        "regional": 88655,
-                        "national": 65208
-                    },
-                    {
-                        "percentile": 25,
-                        "regional": 115760,
-                        "national": 84011
-                    },
-                    {
-                        "percentile": 50,
-                        "regional": 141453,
-                        "national": 110136
-                    },
-                    {
-                        "percentile": 75,
-                        "regional": 162719,
-                        "national": 140462
-                    },
-                    {
-                        "percentile": 90,
-                        "regional": 190183,
-                        "national": 170102
-                    }
+                    {"percentile": 10, "regional": 88655, "national": 65208},
+                    {"percentile": 25, "regional": 115760, "national": 84011},
+                    {"percentile": 50, "regional": 141453, "national": 110136},
+                    {"percentile": 75, "regional": 162719, "national": 140462},
+                    {"percentile": 90, "regional": 190183, "national": 170102}
                 ]
             }
         }
-
         return Response(response_data, status=status.HTTP_200_OK)

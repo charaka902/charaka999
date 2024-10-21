@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import JobSearchView, JobSearchDetailedView, JobSearchBySkillView, JobSearchByTitleView, home  # Import the new view
+from .views import JobSearchView, JobSearchDetailedView, JobSearchBySkillView, JobSearchByTitleView, home
 
 urlpatterns = [
-     path('', home, name='home'),
-    path('api/job-search/', JobSearchView.as_view(), name='job-search'),
+    path('', home, name='home'),
+    path('api/job-search/', JobSearchView.as_view(), name='job-search'),  # Keep these under 'api/' to be consistent
     path('api/job-search-detailed/', JobSearchDetailedView.as_view(), name='job-search-detailed'),
     path('api/job-search-by-skill/', JobSearchBySkillView.as_view(), name='job_search_by_skill'),
-    path('api/job-search-by-title/', JobSearchByTitleView.as_view(), name='job_search_by_title'),  # Add the new endpoint
+    path('api/job-search-by-title/', JobSearchByTitleView.as_view(), name='job_search_by_title'),
 ]
